@@ -10,20 +10,18 @@
 ## 在 Tinycast 安裝
 
 1. 開啟 **Settings → Extensions → Install from GitHub → Install…**。
-2. 輸入 `BaksiLi/shenyandayi-launcher`，等待建置與安裝完成。
-3. 在啟動器搜尋 **尋詞** 或 **覓句**。
+2. 輸入 `BaksiLi/shenyandayi-launcher`，Package manager 選 **npm**，再按 **Install**。
+3. 等待建置與安裝完成，在啟動器搜尋 **尋詞** 或 **覓句**。
 
-從 GitHub 安裝需要 Node.js 與套件管理器。Tinycast 不會自動更新這類擴充套件；更新時重新安裝同一個儲存庫即可，無需先解除安裝。
+Tinycast 會從 GitHub 暫存下載原始碼、安裝依賴並建置，完成後只保留建置產物，刪除暫存的原始碼與依賴。安裝後不需要保留任何本機專案資料夾，也不需要 Raycast 或系統 OpenCC。
 
-也可以從本機建置後，在 **Settings → Extensions → Add from folder** 選擇 `dist/`：
+安裝時需要 Node.js 與 npm。Tinycast 不會自動更新這類擴充套件；更新時重新安裝同一個儲存庫即可，無需先解除安裝。
 
-```sh
-npm ci --ignore-scripts
-npm run check
-npm run build
-```
+## 結果顯示方式
 
-`dist/` 包含 manifest、兩個已建置的指令與圖示，不需複製原始碼或開發依賴。
+目前版本會在瀏覽器開啟深言達意結果頁，**尚未在 Tinycast 內直接顯示詞語或句子結果**。
+
+Tinycast 支援原生清單與詳情介面，但內嵌結果仍需要可用的查詢介面。2026-11-18 測試官網兩個查詢端點時，未帶網站身分的請求均回傳錯誤碼 `20009`。目前未完成可用的原生結果整合；測試細節見 [VALIDATION.md](VALIDATION.md)。
 
 ## 在 Raycast 使用
 
