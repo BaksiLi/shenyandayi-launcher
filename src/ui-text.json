@@ -1,0 +1,46 @@
+{
+  "words": {
+    "title": "Search Words",
+    "placeholder": "Describe a meaning or situation to find Chinese words…",
+    "emptyTitle": "What word are you looking for?",
+    "description": "Describe a meaning, then press Return to search.",
+    "search": "Search Words",
+    "open": "Search Words in Browser",
+    "subtitle": "Search Chinese words on Shenyandayi"
+  },
+  "quotes": {
+    "title": "Search Quotes",
+    "placeholder": "Describe a theme or mood to find Chinese quotes…",
+    "emptyTitle": "What kind of quote are you looking for?",
+    "description": "Enter a theme, then press Return to search.",
+    "search": "Search Quotes",
+    "open": "Search Quotes in Browser",
+    "subtitle": "Search Chinese quotes on Shenyandayi"
+  },
+  "search": {
+    "failed": "Search Unavailable",
+    "copyQuery": "Copy Search Query",
+    "convertedQuery": "Converted query: ",
+    "searching": "Searching…",
+    "waiting": "Waiting for Shenyandayi to return results.",
+    "results": "Results",
+    "noResults": "No Results",
+    "tryAnother": "Try another description or open the search in your browser.",
+    "retry": "Search Again",
+    "copyResult": "Copy Text",
+    "copyCitation": "Copy Text With Source",
+    "preferences": "Open Extension Preferences",
+    "author": "Author",
+    "work": "Work",
+    "provider": "Service",
+    "query": "Search Query",
+    "httpStatus": "HTTP status: "
+  },
+  "errors": {
+    "access": "Shenyandayi restricted access to this page. Open it in your browser to continue.",
+    "timeout": "The search timed out. Try again or open the search in your browser.",
+    "network": "Could not connect to Shenyandayi. Check your connection and try again.",
+    "service": "Shenyandayi returned a service error. Try again later or use the website.",
+    "renderer": "Could not read the Shenyandayi page. Try again or open the search in your browser."
+  }
+}

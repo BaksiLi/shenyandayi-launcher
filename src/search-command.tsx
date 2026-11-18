@@ -1,85 +1,235 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   Action,
   ActionPanel,
   getPreferenceValues,
   Icon,
   List,
-  open,
-  showToast,
-  Toast,
+  openExtensionPreferences,
 } from "@raycast/api";
 import { constructSearchUrl, convertToSimplified } from "./search";
-import type { Preferences, SearchType } from "./types";
+import { fetchSearchResults, SearchError } from "./search-client";
+import {
+  resultAttribution,
+  resultCitation,
+  resultMarkdown,
+} from "./result-text";
+import { getInterfaceText } from "./ui";
+import type { Preferences, SearchResult, SearchType } from "./types";
 
-const labels = {
-  words: {
-    title: "尋詞",
-    placeholder: "輸入意思、情境或英文描述，尋找貼切的詞語…",
-    emptyTitle: "想找哪一個詞？",
-    description: "描述意思或情境，再按 Enter 開啟深言達意尋詞。",
-  },
-  quotes: {
-    title: "覓句",
-    placeholder: "輸入主題、情境或意境，尋找詩詞與佳句…",
-    emptyTitle: "想找怎樣的句子？",
-    description: "輸入主題或意境，再按 Enter 開啟深言達意覓句。",
-  },
-};
+type SearchState =
+  | { status: "idle" }
+  | { status: "loading"; query: string }
+  | { status: "success"; query: string; results: SearchResult[] }
+  | { status: "error"; query: string; error: SearchError };
 
 export default function SearchCommand({ type }: { type: SearchType }) {
   const [searchText, setSearchText] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [state, setState] = useState<SearchState>({ status: "idle" });
+  const activeRequest = useRef<AbortController | undefined>(undefined);
   const { useSystemOpencc = true } = getPreferenceValues<Preferences>();
+  const labels = getInterfaceText();
   const query = searchText.trim();
+  const converted = convertToSimplified(query, useSystemOpencc);
+  const submittedQuery = state.status === "idle" ? converted : state.query;
   const text = labels[type];
+  const results = state.status === "success" ? state.results : [];
+
+  useEffect(() => () => activeRequest.current?.abort(), []);
+
+  function handleTextChange(value: string) {
+    activeRequest.current?.abort();
+    activeRequest.current = undefined;
+    setSearchText(value);
+    setState({ status: "idle" });
+  }
 
   async function handleSearch() {
-    if (!query || isLoading) return;
-
-    setIsLoading(true);
+    if (!query || activeRequest.current) return;
+    const controller = new AbortController();
+    activeRequest.current = controller;
+    setState({ status: "loading", query: converted });
     try {
-      const converted = convertToSimplified(query, useSystemOpencc);
-      await open(constructSearchUrl(converted, type));
+      const found = await fetchSearchResults(
+        converted,
+        type,
+        controller.signal,
+      );
+      if (activeRequest.current === controller && !controller.signal.aborted) {
+        setState({ status: "success", query: converted, results: found });
+      }
     } catch (error) {
-      await showToast({
-        style: Toast.Style.Failure,
-        title: "搜尋失敗",
-        message: error instanceof Error ? error.message : String(error),
-      });
+      if (activeRequest.current === controller && !controller.signal.aborted) {
+        setState({
+          status: "error",
+          query: converted,
+          error:
+            error instanceof SearchError ? error : new SearchError("renderer"),
+        });
+      }
     } finally {
-      setIsLoading(false);
+      if (activeRequest.current === controller)
+        activeRequest.current = undefined;
     }
+  }
+
+  function searchActions(result?: SearchResult) {
+    return (
+      <ActionPanel>
+        {result ? (
+          <Action.CopyToClipboard
+            title={labels.search.copyResult}
+            content={result.text}
+          />
+        ) : (
+          <Action
+            title={state.status === "idle" ? text.search : labels.search.retry}
+            icon={Icon.MagnifyingGlass}
+            onAction={handleSearch}
+          />
+        )}
+        {result && resultAttribution(result) ? (
+          <Action.CopyToClipboard
+            title={labels.search.copyCitation}
+            content={resultCitation(result)}
+          />
+        ) : null}
+        <Action.OpenInBrowser
+          title={text.open}
+          url={constructSearchUrl(submittedQuery, type)}
+          shortcut={{ modifiers: ["cmd"], key: "o" }}
+        />
+        <Action.CopyToClipboard
+          title={labels.search.copyQuery}
+          content={submittedQuery}
+        />
+        {result ? (
+          <Action
+            title={labels.search.retry}
+            icon={Icon.MagnifyingGlass}
+            shortcut={{ modifiers: ["cmd"], key: "r" }}
+            onAction={handleSearch}
+          />
+        ) : null}
+        {preferencesAction()}
+      </ActionPanel>
+    );
+  }
+
+  function preferencesAction() {
+    return (
+      <Action
+        title={labels.search.preferences}
+        icon={Icon.Gear}
+        onAction={openExtensionPreferences}
+      />
+    );
+  }
+
+  let emptyTitle = text.emptyTitle;
+  let description = text.description;
+  if (state.status === "loading") {
+    emptyTitle = labels.search.searching;
+    description = labels.search.waiting;
+  } else if (state.status === "error") {
+    emptyTitle = labels.search.failed;
+    description = labels.errors[state.error.kind];
+    if (state.error.httpStatus !== undefined) {
+      description += ` ${labels.search.httpStatus}${state.error.httpStatus}`;
+    }
+  } else if (state.status === "success" && !results.length) {
+    emptyTitle = labels.search.noResults;
+    description = labels.search.tryAnother;
   }
 
   return (
     <List
-      isLoading={isLoading}
+      navigationTitle={text.title}
+      isLoading={state.status === "loading"}
       searchText={searchText}
-      onSearchTextChange={setSearchText}
+      onSearchTextChange={handleTextChange}
       searchBarPlaceholder={text.placeholder}
       filtering={false}
+      isShowingDetail={type === "quotes" && results.length > 0}
     >
-      {query ? (
+      {state.status === "idle" && query ? (
         <List.Item
           title={query}
-          subtitle={`在深言達意${text.title}`}
-          icon={Icon.MagnifyingGlass}
-          actions={
-            <ActionPanel>
-              <Action
-                title={`開啟${text.title}`}
-                icon={Icon.Globe}
-                onAction={handleSearch}
-              />
-            </ActionPanel>
+          subtitle={
+            converted === query
+              ? text.subtitle
+              : `${labels.search.convertedQuery}${converted}`
           }
+          icon={Icon.MagnifyingGlass}
+          actions={searchActions()}
         />
+      ) : results.length > 0 ? (
+        <List.Section
+          title={labels.search.results}
+          subtitle={
+            submittedQuery === query
+              ? query
+              : `${labels.search.convertedQuery}${submittedQuery}`
+          }
+        >
+          {results.map((result) => (
+            <List.Item
+              key={result.id}
+              title={result.text}
+              subtitle={resultAttribution(result)}
+              icon={type === "words" ? Icon.Text : Icon.QuotationMarks}
+              detail={
+                type === "quotes" ? (
+                  <List.Item.Detail
+                    markdown={resultMarkdown(result)}
+                    metadata={
+                      <List.Item.Detail.Metadata>
+                        {result.author ? (
+                          <List.Item.Detail.Metadata.Label
+                            title={labels.search.author}
+                            text={result.author}
+                          />
+                        ) : null}
+                        {result.work ? (
+                          <List.Item.Detail.Metadata.Label
+                            title={labels.search.work}
+                            text={result.work}
+                          />
+                        ) : null}
+                        <List.Item.Detail.Metadata.Link
+                          title={labels.search.provider}
+                          text="Shenyandayi"
+                          target={constructSearchUrl(submittedQuery, type)}
+                        />
+                        <List.Item.Detail.Metadata.Label
+                          title={labels.search.query}
+                          text={submittedQuery}
+                        />
+                      </List.Item.Detail.Metadata>
+                    }
+                  />
+                ) : undefined
+              }
+              actions={searchActions(result)}
+            />
+          ))}
+        </List.Section>
       ) : (
         <List.EmptyView
-          title={text.emptyTitle}
-          description={text.description}
-          icon={Icon.MagnifyingGlass}
+          title={emptyTitle}
+          description={description}
+          icon={
+            state.status === "error"
+              ? Icon.ExclamationMark
+              : Icon.MagnifyingGlass
+          }
+          actions={
+            query ? (
+              searchActions()
+            ) : (
+              <ActionPanel>{preferencesAction()}</ActionPanel>
+            )
+          }
         />
       )}
     </List>

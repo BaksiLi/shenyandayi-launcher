@@ -1,0 +1,46 @@
+{
+  "words": {
+    "title": "寻词",
+    "placeholder": "输入意思、情境或英文描述，寻找贴切的词语…",
+    "emptyTitle": "想找哪一个词？",
+    "description": "描述意思或情境，再按 Enter 寻词。",
+    "search": "寻词",
+    "open": "在浏览器中寻词",
+    "subtitle": "在深言达意寻词"
+  },
+  "quotes": {
+    "title": "觅句",
+    "placeholder": "输入主题、情境或意境，寻找诗词与佳句…",
+    "emptyTitle": "想找怎样的句子？",
+    "description": "输入主题或意境，再按 Enter 觅句。",
+    "search": "觅句",
+    "open": "在浏览器中觅句",
+    "subtitle": "在深言达意觅句"
+  },
+  "search": {
+    "failed": "暂时无法搜索",
+    "copyQuery": "复制搜索文字",
+    "convertedQuery": "转换后：",
+    "searching": "搜索中…",
+    "waiting": "正在等待深言达意返回结果。",
+    "results": "搜索结果",
+    "noResults": "没有找到结果",
+    "tryAnother": "换一个描述试试，或在浏览器打开搜索。",
+    "retry": "重新搜索",
+    "copyResult": "复制原文",
+    "copyCitation": "复制原文与出处",
+    "preferences": "打开扩展设置",
+    "author": "作者",
+    "work": "作品",
+    "provider": "服务来源",
+    "query": "搜索文字",
+    "httpStatus": "HTTP 状态："
+  },
+  "errors": {
+    "access": "深言达意限制了这个页面的访问。请在浏览器中打开搜索。",
+    "timeout": "搜索超时。请重试，或在浏览器打开搜索。",
+    "network": "无法连接深言达意。请检查网络后重试。",
+    "service": "深言达意返回服务错误。请稍后重试，或使用官网。",
+    "renderer": "无法读取深言达意的搜索页面。请重试，或在浏览器中打开搜索。"
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "words": {
+    "title": "尋詞",
+    "placeholder": "輸入意思、情境或英文描述，尋找貼切的詞語…",
+    "emptyTitle": "想找哪一箇詞？",
+    "description": "描述意思或情境，再按 Enter 尋詞。",
+    "search": "尋詞",
+    "open": "在瀏覽器中尋詞",
+    "subtitle": "在深言達意尋詞"
+  },
+  "quotes": {
+    "title": "覓句",
+    "placeholder": "輸入主題、情境或意境，尋找詩詞與佳句…",
+    "emptyTitle": "想找怎樣的句子？",
+    "description": "輸入主題或意境，再按 Enter 覓句。",
+    "search": "覓句",
+    "open": "在瀏覽器中覓句",
+    "subtitle": "在深言達意覓句"
+  },
+  "search": {
+    "failed": "暫時無法搜尋",
+    "copyQuery": "複製搜尋文字",
+    "convertedQuery": "轉換後：",
+    "searching": "搜尋中…",
+    "waiting": "正在等候深言達意回傳結果。",
+    "results": "搜尋結果",
+    "noResults": "沒有找到結果",
+    "tryAnother": "換一箇描述試試，或在瀏覽器開啟搜尋。",
+    "retry": "重新搜尋",
+    "copyResult": "複製原文",
+    "copyCitation": "複製原文與出處",
+    "preferences": "開啟擴充套件設定",
+    "author": "作者",
+    "work": "作品",
+    "provider": "服務來源",
+    "query": "搜尋文字",
+    "httpStatus": "HTTP 狀態："
+  },
+  "errors": {
+    "access": "深言達意限制了這一頁的存取。請在瀏覽器中開啟搜尋。",
+    "timeout": "搜尋逾時。請重試，或在瀏覽器開啟搜尋。",
+    "network": "無法連線至深言達意。請檢查網路後重試。",
+    "service": "深言達意回傳服務錯誤。請稍後重試，或使用官網。",
+    "renderer": "無法讀取深言達意的搜尋頁。請重試，或在瀏覽器開啟搜尋。"
+  }
+}

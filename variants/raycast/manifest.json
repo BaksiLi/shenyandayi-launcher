@@ -1,0 +1,31 @@
+{
+  "title": "Shenyandayi",
+  "description": "Find Chinese words and quotations from descriptions, with automatic Traditional to Simplified query conversion. Unofficial client.",
+  "commands": [
+    {
+      "name": "wantwords",
+      "title": "Search Words",
+      "subtitle": "Shenyandayi · WantWords",
+      "description": "Describe a meaning or situation to find Chinese words on Shenyandayi.",
+      "mode": "view"
+    },
+    {
+      "name": "wantquotes",
+      "title": "Search Quotes",
+      "subtitle": "Shenyandayi · WantQuotes",
+      "description": "Find Chinese poetry, quotations, and expressions from a theme or description.",
+      "mode": "view"
+    }
+  ],
+  "preferences": [
+    {
+      "name": "useSystemOpencc",
+      "type": "checkbox",
+      "required": false,
+      "default": true,
+      "title": "OpenCC",
+      "description": "Convert Traditional Chinese search queries to Simplified Chinese using bundled OpenCC. No separate installation required.",
+      "label": "Convert search queries to Simplified Chinese"
+    }
+  ]
+}

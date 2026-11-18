@@ -1,8 +1,8 @@
 {
   "$schema": "https://www.raycast.com/schemas/extension.json",
   "name": "deeplang",
-  "title": "深言達意",
-  "description": "透過深言達意尋詞、覓句，找到貼切的中文表達（非官方用戶端）。",
+  "title": "Shenyandayi",
+  "description": "Find Chinese words and quotations from descriptions, with automatic Traditional to Simplified query conversion. Unofficial client.",
   "icon": "extension-icon.png",
   "author": "baksili",
   "categories": [
@@ -10,6 +10,9 @@
     "Developer Tools"
   ],
   "license": "MIT",
+  "platforms": [
+    "macOS"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/BaksiLi/shenyandayi-launcher.git"
@@ -21,39 +24,72 @@
   "commands": [
     {
       "name": "wantwords",
-      "title": "尋詞",
-      "subtitle": "深言達意 · WantWords",
-      "description": "輸入意思、情境或英文描述，尋找貼切的中文詞語。",
+      "title": "Search Words",
+      "subtitle": "Shenyandayi · WantWords",
+      "description": "Describe a meaning or situation to find Chinese words on Shenyandayi.",
+      "keywords": [
+        "尋詞",
+        "寻词",
+        "深言達意",
+        "深言达意",
+        "WantWords"
+      ],
       "mode": "view"
     },
     {
       "name": "wantquotes",
-      "title": "覓句",
-      "subtitle": "深言達意 · WantQuotes",
-      "description": "輸入主題或意境，尋找相關的詩詞、名言與佳句。",
+      "title": "Search Quotes",
+      "subtitle": "Shenyandayi · WantQuotes",
+      "description": "Find Chinese poetry, quotations, and expressions from a theme or description.",
+      "keywords": [
+        "覓句",
+        "觅句",
+        "深言達意",
+        "深言达意",
+        "WantQuotes"
+      ],
       "mode": "view"
     }
   ],
   "preferences": [
     {
+      "name": "interfaceLanguage",
+      "type": "dropdown",
+      "required": false,
+      "default": "en-US",
+      "title": "Interface Language / 介面語言 / 界面语言",
+      "description": "Choose the command interface language. Search queries and results keep their original language.",
+      "data": [
+        {
+          "title": "English (US)",
+          "value": "en-US"
+        },
+        {
+          "title": "繁體中文",
+          "value": "zh-Hant"
+        },
+        {
+          "title": "简体中文",
+          "value": "zh-Hans"
+        }
+      ]
+    },
+    {
       "name": "useSystemOpencc",
       "type": "checkbox",
       "required": false,
       "default": true,
-      "title": "繁簡轉換",
-      "description": "使用內建 OpenCC 將繁體查詢轉為簡體；不需另外安裝。",
-      "label": "搜尋前將繁體轉為簡體"
+      "title": "OpenCC",
+      "description": "Convert Traditional Chinese queries to Simplified Chinese with bundled OpenCC. Results are not converted.",
+      "label": "Convert Queries to Simplified Chinese / 搜尋前轉簡體 / 搜索前转简体"
     }
   ],
   "dependencies": {
-    "@raycast/api": "^1.88.4",
-    "opencc-js": "1.4.2",
-    "react": "^18.2.0"
+    "@raycast/api": "2.12.1",
+    "opencc-js": "1.4.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.18.0",
-    "@types/node": "20.8.10",
-    "@types/react": "^18.2.0",
     "eslint": "^8.57.1",
     "eslint-plugin-react": "^7.37.4",
     "globals": "^15.14.0",
@@ -64,8 +100,9 @@
   "scripts": {
     "build": "ray build --environment dist --output dist --exit-on-error",
     "dev": "ray develop",
+    "prepare:raycast": "node scripts/prepare-raycast.mjs",
     "lint": "eslint src eslint.config.mjs --max-warnings 0",
     "check": "tsc --noEmit && npm run lint",
-    "format:check": "prettier --check src package.json tsconfig.json eslint.config.mjs"
+    "format:check": "prettier --check src scripts variants package.json tsconfig.json eslint.config.mjs"
   }
 }
