@@ -1,6 +1,6 @@
 # Raycast 重新送審準備
 
-**待確認深言達意的書面許可。** Raycast 英文版已通過兩箇即時查詢並完成錄影。
+**已在原 PR 請求複審，待維護者重開。** Raycast 英文版已通過兩箇即時查詢。 [複審請求](https://github.com/raycast/extensions/pull/16372#issuecomment-6970505413)
 
 原 PR：<https://github.com/raycast/extensions/pull/16372>。2025-01-14 建立，2025-01-22 被要求修改並補操作錄影，2025-02-12 因沒有後續活動而關閉；未合併。
 
@@ -16,12 +16,13 @@
 ## 提交前仍需完成
 
 - [x] 透過 WebKit 讀取尋詞與覓句網頁的即時資料，確認句子原文和出處。
-- [ ] 確認深言達意允許在啟動器顯示結果。條款 4.4.1(2) 涉及站外整理展示，Raycast 將未經服務商允許的擷取列為退件理由。見 [網頁接入](SERVICE_INTEGRATION.md)。
+- [x] 專案作者已確認取得深言達意的許可，PR 說明已註明。
 - [x] 以目前 Raycast API 獨立建置英文包，確認打包後的兩箇命令可取得即時資料。
 - [x] 在 Raycast 2.12.1 實測發行版的兩箇查詢。
 - [x] 在 Tinycast 實測三語版的兩箇命令、轉換預覽和原生結果。安裝使用獨立發行建置。
-- [x] 錄製英文介面的 OpenCC 預覽、查詢、原生清單、引文出處及複製動作選單。影片位於 `build/Shenyandayi-Raycast-demo.mp4`。送審工作目錄已更新截圖。
-- [ ] 依最終行為更新原 PR 分支、描述、檢查清單與錄影，再重新開啟並請求審查。
+- [x] 錄製英文介面的 OpenCC 預覽、查詢、原生清單與引文出處，並更新商店截圖。 [21 秒操作示範](https://github.com/BaksiLi/shenyandayi-launcher/releases/download/v0.1.0/Shenyandayi-Raycast-screencast.mp4)
+- [x] 更新原 PR 的分支、說明和影片，留言請原審查員重開並複審。
+- [ ] 等待維護者重開原 PR。GitHub 拒絕了作者的重開請求。
 
 ## 錄影流程
 

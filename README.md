@@ -1,18 +1,21 @@
 # 深言達意 · Tinycast / Raycast
 
-在啟動器中輸入描述，使用[深言達意](https://www.shenyandayi.com/)尋詞或覓句。這是非官方用戶端。
+在 Tinycast 或 Raycast 輸入一箇意思、情境或主題，直接搜尋中文詞語與佳句。結果在啟動器內顯示，覓句可以連作者與作品一起複製。資料來自[深言達意](https://www.shenyandayi.com/)。
 
-- **尋詞（WantWords）**：以意思、情境或英文描述尋找中文詞語。
-- **覓句（WantQuotes）**：以主題或意境尋找詩詞、名言與佳句。
-- **三語介面**：預設美式英語，可切換繁體中文或簡體中文。繁體文案使用「箇」，例如「想找哪一箇詞？」。
-- **原生結果**：尋詞清單、句子全文、作者與作品、複製原文及出處。
-- **內建 OpenCC**：繁體查詢可在本機轉為簡體，不需 Homebrew 或系統 OpenCC，也不會啟動 shell。
-- **單一轉換開關**：「搜尋前自動轉為簡體」預設開啟，尋詞、覓句共用；關閉後送出原文。
-- **搜尋文字預覽**：轉換後的查詢會顯示在清單中，可直接複製。
+[下載 Tinycast 安裝包](https://github.com/BaksiLi/shenyandayi-launcher/releases/latest/download/Shenyandayi-Tinycast.zip) · [觀看 21 秒操作示範](https://github.com/BaksiLi/shenyandayi-launcher/releases/download/v0.1.0/Shenyandayi-Raycast-screencast.mp4)
+
+## 效果預覽
+
+以下是 Raycast 英文版的實際畫面。Tinycast 版同樣會顯示結果，可另選繁體或簡體介面。
+
+| 尋詞 · Search Words | 覓句 · Search Quotes |
+| --- | --- |
+| ![尋詞的繁轉簡預覽與詞語結果清單](media/search-words.png) | ![覓句的結果清單、全文、作者和作品](media/search-quotes.png) |
+| 輸入「描寫山很高」，找到「岧峣」「峻秀」等詞語。 | 輸入「朋友要互相幫助」，選取結果查看全文與出處。 |
 
 ## 在 Tinycast 安裝
 
-1. 從 [GitHub Releases](https://github.com/BaksiLi/shenyandayi-launcher/releases) 下載並解開 `Shenyandayi-Tinycast.zip`。
+1. 下載並解開 [`Shenyandayi-Tinycast.zip`](https://github.com/BaksiLi/shenyandayi-launcher/releases/latest/download/Shenyandayi-Tinycast.zip)。
 2. 在 Tinycast 選 **Settings → Extensions → Add from folder**，選取解開的 `Shenyandayi` 資料夾。
 3. 在啟動器搜尋 **Search Words** 或 **Search Quotes**。也可以搜尋「尋詞」或「覓句」。
 
@@ -22,13 +25,13 @@ Tinycast 會複製建置產物。匯入後可移除下載的資料夾。已裝�
 
 ## 結果顯示方式
 
-新版按 Enter 後會在背景載入深言達意的公開結果頁，再顯示詞語清單或句子全文詳情。句子可顯示作者、作品並連同出處複製。按 `⌘O` 可在預設瀏覽器開啟同一箇搜尋。
+按 Enter 後會在背景載入深言達意的公開結果頁，再顯示詞語清單或句子全文詳情。按 `⌘O` 可在預設瀏覽器開啟同一箇搜尋。
 
 查詢由 macOS 內建 WebKit 在暫存訪客工作階段執行。擴充套件讀取頁面顯示的第一頁結果，保留原文和出處。網站改版或限制存取時，可使用瀏覽器備用動作。詳見 [SERVICE_INTEGRATION.md](SERVICE_INTEGRATION.md)。
 
 ## 在 Raycast 使用
 
-保留 Raycast 擴充套件格式與 `@raycast/api`，可在已安裝 Raycast 的 Mac 上執行 `npm run dev` 載入開發版本。本專案沒有在 Raycast Store 發布；目前的手動驗證以 Tinycast 為主。
+可在已安裝 Raycast 的 Mac 上建置英文版，再用 `npm run dev` 載入。商店審查進度見 [Raycast PR #16372](https://github.com/raycast/extensions/pull/16372)。
 
 Raycast 英文送審包與 Tinycast 三語版由同一份搜尋程式產生：
 
@@ -42,7 +45,7 @@ npm run check
 
 `build/raycast` 的 manifest、指令、設定、動作、錯誤訊息與 README 均使用英文；查詢文字仍可輸入中文。此資料夾是可獨立安裝與建置的來源包，不會使用根目錄的依賴。它沒有語言切換設定，也不包含中文介面資源。
 
-根目錄的新版支援三語並預設美式英語。Raycast 的[目前送審規範](https://developers.raycast.com/basics/prepare-an-extension-for-store#localization--language)要求美式英語，並請勿自行實作介面本地化，因此送審包會移除語言選擇與中文介面資源。英文預設不代表保證過審；待辦見 [RAYCAST_SUBMISSION.md](RAYCAST_SUBMISSION.md)。
+送審進度與錄影流程見 [Raycast 送審記錄](RAYCAST_SUBMISSION.md)。
 
 ## 使用方式與設定
 
@@ -65,7 +68,7 @@ npm run format:check
 
 原始版本由 BaksiLi 開發，位於 [`BaksiLi/raycast-extensions` 的 `ext/deeplang` 分支](https://github.com/BaksiLi/raycast-extensions/tree/ext/deeplang/extensions/deeplang)，取自提交 `aca2701f8769412a9870fd54362ff0bbb480a74b`。本儲存庫將該擴充套件獨立維護。
 
-已在 Tinycast 0.12.15 實測兩箇指令的原生結果。詳見 [驗證記錄](VALIDATION.md)。
+已在 Tinycast 0.12.15 與 Raycast 2.12.1 實測兩箇指令的原生結果。詳見 [驗證記錄](VALIDATION.md)。
 
 繁簡轉換使用 [`opencc-js`](https://github.com/nk2028/opencc-js) 的 `t2cn` 套件入口與 `t → cn` 設定。程式採 MIT 授權；內建 OpenCC 程式與字典的授權見 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。
 

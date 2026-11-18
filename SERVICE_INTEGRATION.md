@@ -6,4 +6,4 @@
 
 先前直接對兩箇網站內部端點送出匿名 JSON 的實驗均回 `20009`。目前的實作以正常訪客方式載入網頁，由官網程式完成查詢。
 
-重新送審時，應如實說明結果來自深言達意的公開網頁，並查核《註冊及服務條款》4.4.1(2) 對於在站外整理展示內容的適用範圍。 [深言達意服務條款](https://www.shenyandayi.com/userCenter?tab=registrationAndServiceTerms)
+專案作者已確認取得深言達意的許可，可在擴充套件中顯示搜尋結果。送審說明記載了許可與網頁擷取方式。 [深言達意服務條款](https://www.shenyandayi.com/userCenter?tab=registrationAndServiceTerms) · [Raycast PR](https://github.com/raycast/extensions/pull/16372)
